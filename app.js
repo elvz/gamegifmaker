@@ -6,7 +6,7 @@ const fs = require('fs');
 const urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 app.use(bodyParser.json());
-// app.use('/static', express.static(__dirname + '/images'));
+app.use(express.static('public'));
 
 const PORT = process.env.port || 3000;
 
@@ -58,7 +58,7 @@ app.get('/assets/white-queen.png', urlEncodedParser, (req, res, next) => {
 
 app.post('/upload/image', urlEncodedParser, async (req, res, next) => {
     try {
-        const path = './images/'+'board'+'.png'
+        const path = './public/images/'+'board'+'.png'
         const imgdata = req.body.base64image;
         const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
         fs.writeFileSync(path, base64Data,  {encoding: 'base64'});
