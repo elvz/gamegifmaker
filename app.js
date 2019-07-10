@@ -22,7 +22,7 @@ app.use(express.static('./public'));
 
 const PORT = process.env.port || 3000;
 
-app.get('/', (req, res, next) => {
+app.get('*', (req, res, next) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 })
 app.get('/alternative.html', (req, res, next) => {
