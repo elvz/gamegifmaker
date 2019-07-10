@@ -2,58 +2,70 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require("path");
+const cors = require('cors');
 
 const urlEncodedParser = bodyParser.urlencoded({extended: false});
 
+app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+  });
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
 const PORT = process.env.port || 3000;
 
 app.get('/', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname + '/index.html'));
 })
 app.get('/alternative.html', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/alternative.html');
+    res.sendFile(path.join(__dirname + '/alternative.html'));
 })
 app.get('/checkers-about.html', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/checkers-about.html');
+    res.sendFile(path.join(__dirname + '/checkers-about.html'));
 })
 app.get('/view.html', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/view.html');
+    res.sendFile(path.join(__dirname + '/view.html'));
 })
 app.get('/style.css', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/style.css');
+    res.sendFile(path.join(__dirname + '/style.css'));
 })
 app.get('/materializeedit.min.css', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/materializeedit.min.css');
+    res.sendFile(path.join(__dirname + '/materializeedit.min.css'));
 })
 app.get('/js/board.js', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/js/board.js');
+    res.sendFile(path.join(__dirname + '/js/board.js'));
 })
 app.get('/js/cell.js', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/js/cell.js');
+    res.sendFile(path.join(__dirname + '/js/cell.js'));
 })
 app.get('/js/dom-to-image.js', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/js/dom-to-image.js');
+    res.sendFile(path.join(__dirname + '/js/dom-to-image.js'));
 })
 app.get('/js/index.js', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/js/index.js');
+    res.sendFile(path.join(__dirname + '/js/index.js'));
 })
 app.get('/js/view.js', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/js/view.js');
+    res.sendFile(path.join(__dirname + '/js/view.js'));
 })
 app.get('/assets/black-checker.png', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/assets/black-checker.png');
+    res.sendFile(path.join(__dirname + '/assets/black-checker.png'));
 })
 app.get('/assets/white-checker.png', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/assets/white-checker.png');
+    res.sendFile(path.join(__dirname + '/assets/white-checker.png'));
 })
 app.get('/assets/black-queen.png', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/assets/black-queen.png');
+    res.sendFile(path.join(__dirname + '/assets/black-queen.png'));
 })
 app.get('/assets/white-queen.png', urlEncodedParser, (req, res, next) => {
-    res.sendFile(__dirname + '/assets/white-queen.png');
+    res.sendFile(path.join(__dirname + '/assets/white-queen.png'));
 })
 
 app.post('/upload/image', urlEncodedParser, async (req, res, next) => {
@@ -71,7 +83,7 @@ app.post('/upload/image', urlEncodedParser, async (req, res, next) => {
 app.get('/images/:file', urlEncodedParser, (req, res, next) => {
     var file = req.params.file;
 
-    res.sendFile(__dirname + '/images/' + file)
+    res.sendFile(path.join(__dirname + '/images/' + file))
 });
 
 app.listen(PORT, () => {
